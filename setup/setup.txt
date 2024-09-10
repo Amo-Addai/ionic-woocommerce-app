@@ -48,6 +48,6 @@ npm install --save @ionic/storage
 - working with woo-app/
 
 ionic g page Menu - generate new page
-also ionic g page products, product-details, cart, 
+also ionic g page signup, products, product-details, cart, 
 
 

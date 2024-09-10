@@ -97,7 +97,7 @@ export class Cart {
     )
 
     checkout = () => (
-
+        
     )
 
     closeModal = () => (

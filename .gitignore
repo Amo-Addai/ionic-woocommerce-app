@@ -1,0 +1,77 @@
+
+.history/
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node modules
+node_modules/
+
+# Platforms (iOS/Android builds)
+platforms/
+plugins/
+
+# Cordova specific
+.cordova/
+plugins/
+
+# Ionic/Capacitor specific
+www/
+build/
+dist/
+ios/
+android/
+.idea/
+.vscode/
+sourcemaps/
+.sass-cache/
+.harmony/
+.project
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Compiled Typescript
+*.tsbuildinfo
+out-tsc/
+
+# IDE specific
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Mac files
+.DS_Store
+
+# Capacitor files
+ios/App/App.xcodeproj/project.xcworkspace/xcuserdata/
+android/app/build/
+
+# TypeScript compile artifacts
+*.js
+*.d.ts
+*.map
+
+# Linting cache
+.eslintcache
+
+# HUSKY hooks
+.husky/
+
+# Package lock
+package-lock.json
+yarn.lock
+
+# Storybook
+storybook-static/
