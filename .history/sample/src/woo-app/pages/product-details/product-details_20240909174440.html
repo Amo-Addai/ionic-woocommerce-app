@@ -1,0 +1,28 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ product?.title || '-' }}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <ion-card>
+        <ion-slides autoplay="3000">
+            <ion-slide *ngFor="let image of product?.images ?? []">
+                <img [src]="image?.src || 'default/path/to/image'" alt="" />
+            </ion-slide>
+        </ion-slides>
+
+        <ion-card-content>
+            <ion-card-title>
+                {{ product?.name || '-' }}
+                <ion-chip *ngFor="let category of product?.categories ?? []">
+                    <ion-label></ion-label>
+                </ion-chip>
+            </ion-card-title>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-card>
+        <ion-slides pager autoplay="3000" loop="true">
+            <!-- <ion-slide *ngFor="let x of [1,2,3,4]"><img src="../assets/images/{{x}}.jpg" /></ion-slide> -->
+            <ion-slide>
+                <img src="http://placehold.it/350x200" alt="" />
+            </ion-slide>
+            <ion-slide>
+                <img src="http://placehold.it/350x200" alt="" />
+            </ion-slide>
+            <ion-slide>
+                <img src="http://placehold.it/350x200" alt="" />
+            </ion-slide>
+            <ion-slide>
+                <img src="http://placehold.it/350x200" alt="" />
+            </ion-slide>
+        </ion-slides>
+    </ion-card>
+
+    <!-- TODO: ensure assets/images/... -->
+    <img 
+        src="../assets/images/banner.jpg" 
+        alt="" 
+        style="margin-top: 10px;"
+        />
+
+    <ion-grid>
+        <ion-row>
+            <ion-slides #productSlides>
+                <ion-slide *ngFor="let product of products">
+                    <ion-card no-padding>
+                        <!-- <img src="{{product?.featured_src ?? 'path-to-default-img'}}" alt="" /> -->
+                        <img [src]="product?.featured_src ?? 'path-to-default-img'" alt="" />
+                        <h1 padding center>{{product?.title ?? ''}}</h1>
+                        <p center padding [innerHTML]="product?.short_description ?? ''"></p>
+                    </ion-card>
+                </ion-slide>
+            </ion-slides>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list>
+        <ion-item *ngFor="let product of products">
+            <ion-thumbnail>
+                <img [src]="product?.featured-src" alt="" />
+            </ion-thumbnail>
+            <h1
+        </ion-item>
+    </ion-list>
+</ion-content>

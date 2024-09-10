@@ -1,0 +1,26 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Products</ion-title>
+    </ion-navbar>
+    
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <ion-item *ngFor="let product of products" text-wrap>
+            <ion-thumbnail item-left>
+                <img [src]="product?.featured_src || 'path/to/image/'" alt="" />
+            </ion-thumbnail>
+
+            <h2>{{ product?.title || '-' }}</h2>
+
+            <p>
+                <span [innerHTML]="product?.short_description?.substr(0, 50)?.concat('...') || '-'"></span>
+                <span [innerHTML]="product?.price_html || '-'""
+            </p>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

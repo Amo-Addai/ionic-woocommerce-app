@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Your Cart</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    
+    <ion-list>
+        <ion-item *ngFor="let item of cartItems">
+            
+            <ion-thumbnail item-left>
+                <img [src]="item?.product?.featured_src || 'path/to/image/'" style="width: 60px !important; height: 6px"
+            </ion-thumbnail>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

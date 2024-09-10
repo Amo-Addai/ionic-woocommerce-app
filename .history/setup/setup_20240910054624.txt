@@ -1,0 +1,54 @@
+
+- setup ionic app
+
+npm install -g ionic cordova
+
+ionic start --v[LATEST_VERSION] woo-ionic blank
+
+cd woo-ionc
+
+ionic serve - test app
+
+ionic platform add android (& ios)
+
+ionic run android (& ios)
+
+- setup woocommerce locally
+    - download woocommerce
+    - download & install wordpress & wampserver
+    - setup wordpress on running wampserver
+    - extract woocommerce zip-download into wamp-wordpress plugins/
+    - path: wamp64 > www > wordpress > wp-content > plugins/
+
+- in wordpress on running wampserver
+    - confirm installed woocommerce plugin
+    - Activate plugin
+    - Ensure woocommerce REST API enabled in its settings > API tab
+    - 'Save changes', go to 'Keys/Apps' sub-tab
+    - add api key 'wooionic' - read/write
+    - generate API Key
+    - keep Consumer Key & Secret secure
+
+
+- * install type definitions for node // TODO: check access to process.env
+
+npm i --save-dev @types/node
+
+
+- install woocommerce api module
+
+npm install --save woocommerce-api
+
+
+- install cordova-sqlite-storage plugin
+
+
+
+
+- working with woo-app/
+
+ionic g page Menu - generate new page
+ionic g page products
+ionic g page product-details
+
+

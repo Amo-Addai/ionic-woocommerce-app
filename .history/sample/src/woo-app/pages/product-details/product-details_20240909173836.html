@@ -1,0 +1,17 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ product?.title || '-' }}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <ion-slides>
+        <ion-slide *ngFor="let image of product?.images ?? []">
+            
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>
