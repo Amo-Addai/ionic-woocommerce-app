@@ -5,7 +5,7 @@ npm install -g ionic cordova
 
 ionic start --v[LATEST_VERSION] woo-ionic blank
 
-cd woo-ionc
+cd woo-ionic
 
 ionic serve - test app
 
@@ -48,6 +48,6 @@ npm install --save @ionic/storage
 - working with woo-app/
 
 ionic g page Menu - generate new page
-also ionic g page signup, products, product-details, cart, 
+also ionic g page signup, login, products, product-details, cart, 
 
 

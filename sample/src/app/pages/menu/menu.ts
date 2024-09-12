@@ -1,9 +1,13 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import * as WC from 'woocommerce-api';
 
+import { SignUp } from '../signup/signup';
+import { Login } from '../login/login';
 import { Home } from '../home/home';
 import { Products } from '../products/products';
+import { Cart } from '../cart/cart';
 
 
 @Component({
@@ -17,13 +21,18 @@ export class Menu {
     categories: any[];
     @ViewChild('content')
     childNavCtrl: NavController;
+    user: any;
+    loggedIn: boolean = false;
 
     constructor(
         public navCtrl: NavController,
-        public navParams: NavParams
+        public navParams: NavParams,
+        public modalCtrl: ModalController,
+        public storage: Storage
     ) {
         this.homePage = Home;
         this.categories = [];
+        this.user = {};
 
         if (!this.wc)
             this.wc = WC({
@@ -64,6 +73,29 @@ export class Menu {
         console.log('ionViewDidLoad')
     }
 
+    ionViewDidEnter() {
+        this.storage
+            .ready()
+            .then(() => (
+                this.storage
+                    .get('userLoginInfor')
+                    .then((loginInfo: any) => (
+                        !!loginInfo
+                        ? (
+                            console.log('user logged in'),
+                            this.user = loginInfo?.user ?? {},
+                            console.log(this.user),
+                            this.loggedIn = true
+                        )
+                        : (
+                            console.log('No user found'),
+                            this.user = {},
+                            this.loggedIn = false
+                        )
+                    ))
+            ))
+    }
+
     openCategoryPage(category: any) {
         this.childNavCtrl
             .setRoot(
@@ -74,5 +106,33 @@ export class Menu {
                 }
             )
     }
+
+    openPage = (page: string) => (
+        this.navCtrl
+            .push(
+                page === 'signup'
+                    ? SignUp
+                    : page === 'login'
+                        ? Login
+                        : page === 'logout'
+                            ? (() => (
+                                this.storage
+                                    .remove('loginInfo')
+                                    .then(() => (
+                                        this.user = {},
+                                        this.loggedIn = false
+                                    )),
+                                Login
+                            ))()
+                            : page === 'cart'
+                                && ((
+                                    modal = this.modalCtrl
+                                                .create(Cart)
+                                ) => (
+                                    modal.present(),
+                                    null
+                                ))() // todo: Test default-exec modal with (unnecessary) null-return to navCtrl
+            )
+    )
 
 }

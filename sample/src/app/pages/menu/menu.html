@@ -1,18 +1,3 @@
-
-<!--
-ion-header>ion-navbar>ion-title{Menu}^^+ion-content.padding
-
-<ion-header>
-    <ion-navbar>
-        <ion-title>Menu</ion-title>
-    </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-    
-</ion-content>
--->
-
 <ion-menu [content]="content">
     <ion-header>
         <ion-toolbar>
@@ -26,7 +11,8 @@ ion-header>ion-navbar>ion-title{Menu}^^+ion-content.padding
             <div class="card-subtitle">Keep Shopping</div>
         </ion-card>
         <ion-list>
-            <button menuClose ion-item>
+
+            <button ion-item menuClose>
                 Home
             </button>
             <ion-item *ngFor="let category of categories" text-wrap (click)="openCategoryPage(category)" menuClose>
@@ -34,6 +20,48 @@ ion-header>ion-navbar>ion-title{Menu}^^+ion-content.padding
                 <h2>{{ category?.name || '-' }}</h2>
                 <p>{{ category?.description || '-' }}</p>
             </ion-item>
+
+            <ion-item-divider color="danger">Account</ion-item-divider>
+
+            <ion-content *ngIf="!loggedIn">
+                <ion-item (click)="openPage('signup')" menuClose>
+                    <ion-icon name="md-clipboard" item-left large></ion-icon>
+                    <h2>Sign up</h2>
+                    <p>For a new account</p>
+                </ion-item>
+                <ion-item (click)="openPage('login')" menuClose>
+                    <ion-icon name="md-clipboard" item-left large></ion-icon>
+                    <h2>Login</h2>
+                    <p>with email</p>
+                </ion-item>
+            </ion-content>
+
+            <ion-content *ngIf="loggedIn">
+                <ion-item menuClose>
+                    <ion-icon name="contact" item-left large></ion-icon>
+                    <h2>
+                        {{
+                            this.user
+                                ?.first_name
+                                ?? this.user
+                                    ?.username
+                                    ?? ''
+                        }}
+                    </h2>
+                    <p>Welcome</p>
+                </ion-item>
+                <ion-item (click)="openPage('cart')" menuClose>
+                    <ion-icon name="cart" item-left large></ion-icon>
+                    <h2>Your Cart</h2>
+                    <p>Check items in your cart</p>
+                </ion-item>
+                <ion-item (click)="openPage('logout')" menuClose>
+                    <ion-icon name="log-out" item-left large></ion-icon>
+                    <h2>Logout</h2>
+                    <p>of your account</p>
+                </ion-item>
+            </ion-content>
+
         </ion-list>
     </ion-content>
 </ion-menu>
