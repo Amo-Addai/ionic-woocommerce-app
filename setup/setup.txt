@@ -30,6 +30,39 @@ ionic run android (& ios)
     - keep Consumer Key & Secret secure
 
 
+- setup firebase app & project
+    - navigate to Settings > Project settings > CLOUD MESSAGING
+    - get Sender ID
+    - use in OneSignal setup-config in app.component.ts
+    - NB: should route ID through .env file
+
+
+- setup onesignal app
+    - navigate to App Settings > Keys & IDs tab
+        - get OneSignal App ID
+        - use in OneSignal setup-config in app.component.ts
+        - NB: should route ID through .env file
+    - still in App Settings, navigate to Platforms tab
+        - in Native App Platforms, Configure Google Android
+        - get 'Google Server API Key' from 'Server Key' in Firebase's CLOUD MESSAGING tab
+        - get 'Google Project Number' from 'Sender ID' in Firebase's CLOUD MESSAGING tab
+    - Save settings
+    - now Push Notifications to Google Android is Active
+    - TODO: Activate any others (Apple iOS, Windows Phone 8.0/8.1, ..)
+    - run app (ionic run android) after setup-complete to add user to OneSignal
+    - send a test notification message to all 'added' user(s)
+
+
+- settings up onesignal in wordpress:
+- go back to wordpress on running wampserver
+- navigate to Plugins
+    - search onesignal
+    - for OneSignal - Free Web Push Notifications - Install Now & Activate
+- navigate to OneSignal Push > Configuration
+    - 
+
+
+
 - * install type definitions for node // TODO: check access to process.env
 
 npm i --save-dev @types/node
@@ -40,7 +73,7 @@ npm i --save-dev @types/node
 npm install --save woocommerce-api
 
 
-- install cordova-sqlite-storage plugin
+- add cordova-sqlite-storage plugin & install module
 
 cordova plugin add cordova-sqlite-storage --save
 npm install --save @ionic/storage
@@ -48,6 +81,29 @@ npm install --save @ionic/storage
 - working with woo-app/
 
 ionic g page Menu - generate new page
-also ionic g page signup, login, products, product-details, cart, 
+- also ionic g pages:
+signup, login, products, product-details, cart, checkout, 
+- remove .module.ts file for all of them - not sub-modules
+- also remove all their .ts classes' @IonicPage decorators - components, not pages
+
+
+- add paypal plugin & install module
+
+ionic plugin add com.paypal.cordova.mobilesdk
+npm install --save @ionic-native/paypal
+
+
+- 3rd-party ionic-native modules (paypal, onesignal, ..) not in @ionic-native/ by default
+
+
+- add onesignal plugin & install module
+
+ionic plugin add --save onesignal-cordova-plugin
+npm install --save @ionic-native/onesignal
+
+
+- run the app
+
+ion run android/ios
 
 

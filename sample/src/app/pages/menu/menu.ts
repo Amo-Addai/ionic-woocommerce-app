@@ -34,12 +34,14 @@ export class Menu {
         this.categories = [];
         this.user = {};
 
-        if (!this.wc)
+        !this.wc
+        && (
             this.wc = WC({
                 url: 'ECOMMERCE_STORE_URL', // TODO: process.env.ECOMMERCE_STORE_URL ionic-angular config
                 consumerKey: 'key',
                 consumerSecret: 'secret'
-            });
+            })
+        )
         
         this.wc
             .getAsync('products/categories')
@@ -78,12 +80,12 @@ export class Menu {
             .ready()
             .then(() => (
                 this.storage
-                    .get('userLoginInfor')
-                    .then((loginInfo: any) => (
-                        !!loginInfo
+                    .get('userLoginInfo')
+                    .then((userLoginInfo: any) => (
+                        !!userLoginInfo
                         ? (
                             console.log('user logged in'),
-                            this.user = loginInfo?.user ?? {},
+                            this.user = userLoginInfo?.user ?? {},
                             console.log(this.user),
                             this.loggedIn = true
                         )
@@ -117,7 +119,7 @@ export class Menu {
                         : page === 'logout'
                             ? (() => (
                                 this.storage
-                                    .remove('loginInfo')
+                                    .remove('userLoginInfo')
                                     .then(() => (
                                         this.user = {},
                                         this.loggedIn = false

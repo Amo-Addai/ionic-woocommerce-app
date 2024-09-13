@@ -28,12 +28,14 @@ export class Home {
         this.products = [];
         this.moreProducts = [];
 
-        if (!this.wc)
+        !this.wc
+        && (
             this.wc = WC({
                 url: 'ECOMMERCE_STORE_URL', // TODO: process.env.ECOMMERCE_STORE_URL ionic-angular config
                 consumerKey: 'key',
                 consumerSecret: 'secret'
-            });
+            })
+        )
         
         this.wc
             .getAsync('products')

@@ -23,12 +23,14 @@ export class SignUp {
         public alertCtrl: AlertController
     ) {
 
-        if (!this.wc)
+        !this.wc
+        && (
             this.wc = WC({
                 url: 'ECOMMERCE_STORE_URL', // TODO: process.env.ECOMMERCE_STORE_URL ionic-angular config
                 consumerKey: 'key',
                 consumerSecret: 'secret'
-            });
+            })
+        )
 
     }
 
@@ -37,11 +39,11 @@ export class SignUp {
     }
 
     toggleIsSameAddress =
-        () => 
+        () => // TODO: Test var assignment without function/lambda {}/() scopes
             this.same_billing_shipping
                 = !this.same_billing_shipping
 
-    toggleSameAddress = () => (
+    toggleSameAddress = () => // TODO: Test Ternary with var assignments without function/lambda {}/() scopes
         this.same_billing_shipping
         ? this.newUser
             .shipping_address =
@@ -53,7 +55,6 @@ export class SignUp {
             }
         : this.newUser
             .shipping_address = {}
-    )
     
     checkInput = (input: any) => (
             valid = false,

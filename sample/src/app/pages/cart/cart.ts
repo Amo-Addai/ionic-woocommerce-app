@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ViewController, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { Login } from '../login/login';
+import { Checkout } from '../checkout/checkout';
+
 
 @Component({
     selector: 'page-cart',
@@ -97,7 +100,20 @@ export class Cart {
     )
 
     checkout = () => (
-        
+        this.storage
+            .get('userLoginInfo')
+            .then(
+                (data: any) => (
+                    !!data
+                    ? this.navCtrl
+                            .push(Checkout)
+                    : this.navCtrl
+                            .push(
+                                Login,
+                                { next: Checkout }
+                            )
+                )
+            )
     )
 
     closeModal = () => (
