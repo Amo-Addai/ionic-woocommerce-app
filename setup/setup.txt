@@ -13,12 +13,17 @@ ionic platform add android (& ios)
 
 ionic run android (& ios)
 
+
+------------------------------------------------------------------------
+
+
 - setup woocommerce locally
     - download woocommerce
     - download & install wordpress & wampserver
     - setup wordpress on running wampserver
     - extract woocommerce zip-download into wamp-wordpress plugins/
     - path: wamp64 > www > wordpress > wp-content > plugins/
+
 
 - in wordpress on running wampserver
     - confirm installed woocommerce plugin
@@ -28,6 +33,8 @@ ionic run android (& ios)
     - add api key 'wooionic' - read/write
     - generate API Key
     - keep Consumer Key & Secret secure
+- navigate to Products section (CMS)
+    - create as many products as preferred
 
 
 - setup firebase app & project
@@ -53,14 +60,33 @@ ionic run android (& ios)
     - send a test notification message to all 'added' user(s)
 
 
-- settings up onesignal in wordpress:
+- setting up onesignal in wordpress:
 - go back to wordpress on running wampserver
 - navigate to Plugins
     - search onesignal
     - for OneSignal - Free Web Push Notifications - Install Now & Activate
 - navigate to OneSignal Push > Configuration
-    - 
-
+    - get 'App ID' from 'OneSignal App ID' in onesignal App Settings > Keys & IDs tab
+    - get 'REST API Key' from 'REST API Key' in onesignal App Settings > Keys & IDs tab
+- on onesignal App Settings > Platforms tab
+    - Configure Google Chrome and Mozilla Firefox in Website Push Platforms section
+    - set Site URL as wordpress site's url & https
+    - set subdomain 'wooionic' & Save
+- back to wordpress' OneSignal Push > Configuration tab
+    - set 'OneSignal Subdomain' as 'http(s)://wooionic.onesignal.com' from onesignal
+    - set remaining notification & other settings based on preferences
+    - Save
+- navigate to Products CMS section (still in wordpress)
+    - choose an already created product (or create a new one)
+    - select 'Send notification on product update'
+    - Update (or set) any of product's data
+    - 'Update' (on right-pane)
+- test app when done (running on android/ios) for onesignal notifications on update
+- navigate to Appearance > Editor
+    - can customize notification functionality by (right) side-navigating to Theme Functions
+    - paste code from /extras/one-signal-custom.php at bottom of 'Edit Themes' editor-pane
+    - Update File
+- re-test app when done (running on android/ios) for onesignal notifications on update
 
 
 - * install type definitions for node // TODO: check access to process.env
@@ -107,3 +133,57 @@ npm install --save @ionic-native/onesignal
 ion run android/ios
 
 
+------------------------------------------------------------------------
+
+
+- publishing the app to Google PlayStore / Apple App Store
+- TODO: go through all current resources in docs to update publishing method
+
+ionic resources
+ionic build android/ios --release (need Xcode & buildtools for ios)
+
+
+- for android: generates path to android-release-unsigned.apk file in build/outputs/apk/
+
+- generate keystore for signing app's apk
+
+keytool -genkey -v -keystore [name_of_-release-key].keystore -alias [alias_name=wooionic] -keyalg RSA -keysize 2048 -validity 10000
+- follow steps: keystore password, full name, etc
+
+- can use jarsigner with keystore to sign unsigned-apk file
+
+jarsigner -verbose -siglag SHAwithRSA -digestalg SHA1 -keystore [name_of_-release-key].keystore [path_to_]android-release-unsigned.apk [alias_name=wooionic]
+- verify: keystore password, build
+
+- now use zipalign to optimize the apk
+
+zipalign -v 4 [path_to_]android-release-unsigned.apk [name_of_android-release-signed=WooIonic].apk
+
+- if cmd fails, download zipalign.exe then use path to it to run the same cmd instead
+
+
+- now, wooionic.apk can be tested on an android phone & published to Google PlayStore
+
+
+- on Google PlayStore
+    - Create Application with all config
+    - side-nav to App releases > Manage Production > Create Release > Upload APK
+    - side-nav to Content rating > Continue > Follow steps to define app's features > Calculate rating
+    - if content with current app's rating (else, 'Go Back' to the app to make changes) > Apply Rating
+    - side-nav to Pricing & distribution
+        - set FREE, Available in all countries, any other preferred config
+        - scroll back up to Save Draft
+    - ensure all green-checkmarks for each publishing step on the side-nav pane (might not all be green-checked)
+    - re-side-nav to App releases > Edit Release > Review > check if 'Start Roll-Out To Production' is (en/dis)abled
+        - button might be disabled - scroll back to check "Why can't I publish?"
+            - eg. app may require android.permission.CAMERA, which also requires a privacy policy set
+            - connected with with of the publishing steps on side-nav panes not green-checkmarked yet
+    - side-nav back to that step - Store listing > scroll down to bottom 'Privacy Policy'
+        - add a 'verified' privacy policy url (or a dummy url)
+        - or test checkmarking 'Not submitting a privacy policy URL at current time' & check if 'Start Roll-Out To Production' is (en/dis)abled all over again
+        - scroll back up to Save Draft
+    - re-side-nav to App releases > Edit Release > Review > check if 'Start Roll-Out To Production' is (en/dis)abled
+        - button should be enabled this time - click & Confirm
+    
+    - now, application has been submitted, with a 'Pending publication' status
+    - Google will release app in 1/2 day(s) if everything goes well
