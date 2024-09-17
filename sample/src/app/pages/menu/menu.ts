@@ -10,18 +10,19 @@ import { Products } from '../products/products';
 import { Cart } from '../cart/cart';
 
 
+@IonicPage({})
 @Component({
     selector: 'page-menu',
     templateUrl: 'menu.html',
 })
 export class Menu {
 
-    @Input() wc: any;
+    @Input() wc: any; // prop-input // todo: test passing in wc as Input
     homePage: Component;
-    categories: any[];
     @ViewChild('content')
     childNavCtrl: NavController;
     user: any;
+    categories: any[] = [];
     loggedIn: boolean = false;
 
     constructor(

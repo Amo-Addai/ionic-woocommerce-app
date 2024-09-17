@@ -11,12 +11,13 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { AppComponent } from './app.component';
 import { SignUp } from './pages/signup/signup';
 import { Login } from './pages/login/login';
-import { Menu } from './pages/menu/menu';
+// import { Menu } from './pages/menu/menu';
 import { Home } from './pages/home/home';
 import { Products } from './pages/products/products';
 import { ProductDetails } from './pages/product-details/product-details';
 import { Cart } from './pages/cart/cart';
 import { Checkout } from './pages/checkout/checkout';
+import { Search } from './pages/search/search';
 
 
 @NgModule({
@@ -24,12 +25,13 @@ import { Checkout } from './pages/checkout/checkout';
     AppComponent,
     SignUp,
     Login,
-    Menu,
+    // Menu, // * now lazy-loaded (.component.ts)
     Home,
     Products,
     ProductDetails,
     Cart,
     Checkout,
+    Search,
   ],
   imports: [
     BrowserModule,
@@ -42,12 +44,13 @@ import { Checkout } from './pages/checkout/checkout';
     AppComponent,
     SignUp,
     Login,
-    Menu,
+    // Menu, // * now lazy-loaded (.component.ts)
     Home,
     Products,
     ProductDetails,
     Cart,
     Checkout,
+    Search,
   ],
   providers: [
     StatusBar,

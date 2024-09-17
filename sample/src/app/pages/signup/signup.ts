@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
@@ -9,7 +9,7 @@ import * as WC from 'woocommerce-api';
 })
 export class SignUp {
 
-    @Input() wc: any;
+    wc: any;
     same_billing_shipping: boolean = false;
     newUser: any = {
         billing_address: {},

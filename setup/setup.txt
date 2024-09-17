@@ -108,9 +108,17 @@ npm install --save @ionic/storage
 
 ionic g page Menu - generate new page
 - also ionic g pages:
-signup, login, products, product-details, cart, checkout, 
-- remove .module.ts file for all of them - not sub-modules
-- also remove all their .ts classes' @IonicPage decorators - components, not pages
+signup, login, products, product-details, cart, checkout, search
+
+- for wooionic/ (NOT wooionic-advanced/)
+    - remove .module.ts file for all of them - not sub-modules
+    - also remove all their .ts classes' @IonicPage decorators - components, not pages
+
+- for wooionic-advanced/
+    - extra features - lazy-loaded pages, added menu sub-categories, improved cart, added providers (WooCommerce, ..)
+    - remove cart.module.ts file only - not a sub-module; created by a ModalController
+    - also remove all its .ts classes' @IonicPage decorators - components, not pages
+- ionic g provider WooCommerce
 
 
 - add paypal plugin & install module
@@ -187,3 +195,5 @@ zipalign -v 4 [path_to_]android-release-unsigned.apk [name_of_android-release-si
     
     - now, application has been submitted, with a 'Pending publication' status
     - Google will release app in 1/2 day(s) if everything goes well
+
+

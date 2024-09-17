@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
@@ -10,7 +10,7 @@ import { ProductDetails } from '../product-details/product-details';
 })
 export class Products {
 
-    @Input() wc: any;
+    wc: any;
     products: any[];
     page: number;
     category: any;

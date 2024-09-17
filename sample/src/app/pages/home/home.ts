@@ -1,8 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, ToastController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
 import { ProductDetails } from '../product-details/product-details'
+import { Search } from '../search/search'
 
 
 @Component({
@@ -12,10 +13,11 @@ import { ProductDetails } from '../product-details/product-details'
 export class Home {
 
     // View-Model data
-    @Input() wc: any; // prop-input
+    wc: any;
     page: number;
     products: any[];
     moreProducts: any[];
+    searchQuery: string = '';
 
     // child component
     @ViewChild('productSlides') productSlides: Slides;
@@ -109,5 +111,17 @@ export class Home {
                 { product }
             )
     }
+
+    onSearch = (event: any) => (
+        this.searchQuery
+            .length
+            && this.navCtrl
+                    .push(
+                        Search,
+                        {
+                            searchQuery: this.searchQuery
+                        }
+                    )
+    )
 
 }

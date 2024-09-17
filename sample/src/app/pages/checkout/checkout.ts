@@ -17,7 +17,7 @@ import { Home } from '../home/home';
 })
 export class Checkout {
 
-    @Input() wc: any;
+    wc: any;
     userInfo: any;
     newOrder: any;
     same_billing_shipping: boolean = false;
