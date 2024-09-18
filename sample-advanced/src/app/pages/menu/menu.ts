@@ -150,6 +150,10 @@ export class Menu {
                                     c: any,
                                     j: number
                                 ) => (
+
+                                    // * this func is still called in constructor (not event-listener 'yet')
+                                    // so this check will always be true (this.categories = [])
+
                                     !this.categories[j]
                                         ?.subCategories // TODO: Test
                                     || // * risky null/empty checks - to take entire subCategory list from hashTable (filled in previous loop)
@@ -163,15 +167,19 @@ export class Menu {
                                                 this.categories[j]
                                                     .subCategories =
                                                         categories[c?.id] // take entire subCategory list from hashTable
-
-                                                // * if this.categories wasn't constructed from scratc .
-                                                // & this was called in an event-listener with already stateful this.categories ..
-                                                // then append categories[c?.id] as all new subCategories
-
-                                                // * this.categories[j].subCategories = this.categories[j].subCategories.concat(categories[c?.id])
-
                                             )
                                         )
+
+                                        /*
+                                            * if this.categories wasn't constructed from scratch
+                                            & this was called in an event-listener with (already-stateful) this.categories ..
+                                            then append categories[c?.id] as all new subCategories
+                                            outside of the above double-check: this.categories[j]?.subCategories?.length == 0
+
+                                            * this.categories[j].subCategories = this.categories[j].subCategories.concat(categories[c?.id])
+                                            if !!c?.id && categories.hasOwnProperty(c?.id)
+                                        */
+
                                 )
                             )
                     ),
