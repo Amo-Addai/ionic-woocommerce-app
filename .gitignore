@@ -32,6 +32,7 @@ sourcemaps/
 .sass-cache/
 .harmony/
 .project
+.DS_STORE
 .DS_Store
 
 # Environment variables
@@ -52,6 +53,7 @@ out-tsc/
 *.sw?
 
 # Mac files
+.DS_STORE
 .DS_Store
 
 # Capacitor files
