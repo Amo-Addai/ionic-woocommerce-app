@@ -74,28 +74,29 @@ export class Cart {
                 ?.price ?? ''
         ),
         quantity = item?.quantity ?? 0,
-        (
+        !(
             change < 0
             && quantity == 1
-        ) && null,
-        quantity += change,
-        item.quantity = quantity,
-        item.amount = quantity * price,
-        this.cartItems[i] = item,
-        this.storage
-            .set(
-                'cart',
-                this.cartItems
-            )
-            .then(
-                () =>
-                    this.toastCtrl
-                        .create({
-                            message: 'Cart Updated',
-                            duration: 2000,
-                            showCloseButton: true
-                        }).present()
-            )
+        ) && (
+            quantity += change,
+            item.quantity = quantity,
+            item.amount = quantity * price,
+            this.cartItems[i] = item,
+            this.storage
+                .set(
+                    'cart',
+                    this.cartItems
+                )
+                .then(
+                    () =>
+                        this.toastCtrl
+                            .create({
+                                message: 'Cart Updated',
+                                duration: 2000,
+                                showCloseButton: true
+                            }).present()
+                )
+        )
     )
 
     removeFromCart = (
