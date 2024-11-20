@@ -1,6 +1,7 @@
 
 .history/
 .vscode/
+.idea/
 
 # Logs
 logs
@@ -28,6 +29,7 @@ ios/
 android/
 .idea/
 .vscode/
+.idea/
 sourcemaps/
 .sass-cache/
 .harmony/
