@@ -67,7 +67,8 @@ export class Menu {
                             } else console.log(category) // todo:
                         }),
 
-                    // Method-Options to Group sub-categories // todo: check moving inner-loop inside previous loop (as outer-loop), with incremental this.categories.length
+                    // Method-Options to Group sub-categories
+                    // todo: check moving inner-loop inside previous loop (as outer-loop), with incremental this.categories.length
 
                     groupSubCategories = (data: any) => // O(n^2) t ; O(1) s
                         data?.product_categories
@@ -100,13 +101,13 @@ export class Menu {
                         
                     groupSubCategories_OnT_OnS_Wrong = ( // O(2n ~ n) t ; O(n) s
                         data: any,
-                        categories: any = {}
+                        categoryMap: any = {}
                     ) => (
                         data?.product_categories
                             ?.forEach( // O(n) t ; O(n) s
                                 (category: any) =>
                                     category?.parent
-                                    && (categories[category.parent] = category) // * 1/null/.. in case of no need to save category data, waste of space
+                                    && (categoryMap[category.parent] = category) // * 1/null/.. in case of no need to save category data, waste of space
                             ),
                         this.categories
                             ?.forEach( // O(n) t ; O(1) s
@@ -115,14 +116,14 @@ export class Menu {
                                     j: number
                                 ) => (
                                     !!c?.id
-                                    && categories.hasOwnProperty(c?.id)
+                                    && categoryMap.hasOwnProperty(c?.id)
                                     && (
                                         this.categories[j]
                                             ?.subCategories
                                             ?.length >= 0 // check for non-null list, even if empty
                                             ? this.categories[j]
                                                 ?.subCategories
-                                                ?.push(categories[c?.id])
+                                                ?.push(categoryMap[c?.id])
                                             : this.categories[j]
                                                 .subCategories = []
                                     )
@@ -132,16 +133,16 @@ export class Menu {
                         
                     groupSubCategories_OnT_OnS_Correct = ( // O(2n ~ n) t ; O(n) s
                         data: any,
-                        categories: any = {}
+                        categoryMap: any = {}
                     ) => (
                         data?.product_categories
                             ?.forEach( // O(n) t ; O(n) s
                                 (category: any) =>
                                     category?.parent
                                     && (
-                                        categories[category.parent]?.length >= 0 // check for non-null list, even if empty
-                                        ? categories[category.parent].push(category) // push into hashTable instead
-                                        : categories[category.parent] = []
+                                        categoryMap[category.parent]?.length >= 0 // check for non-null list, even if empty
+                                        ? categoryMap[category.parent].push(category) // push into hashTable instead
+                                        : categoryMap[category.parent] = []
                                     )
                             ),
                         this.categories
@@ -154,31 +155,32 @@ export class Menu {
                                     // * this func is still called in constructor (not event-listener 'yet')
                                     // so this check will always be true (this.categories = [])
 
-                                    !this.categories[j]
-                                        ?.subCategories // TODO: Test
-                                    || // * risky null/empty checks - to take entire subCategory list from hashTable (filled in previous loop)
-                                    this.categories[j]
-                                        ?.subCategories
-                                        ?.length == 0
+                                    (
+                                        !this.categories[j]
+                                            ?.subCategories // TODO: Test
+                                        || // * risky null/empty checks - to take entire subCategory list from hashTable (filled in previous loop)
+                                        this.categories[j]
+                                            ?.subCategories
+                                            ?.length == 0
+                                    ) && (
+                                        !!c?.id
+                                        && categoryMap.hasOwnProperty(c?.id)
                                         && (
-                                            !!c?.id
-                                            && categories.hasOwnProperty(c?.id)
-                                            && (
-                                                this.categories[j]
-                                                    .subCategories =
-                                                        categories[c?.id] // take entire subCategory list from hashTable
-                                            )
+                                            this.categories[j]
+                                                .subCategories =
+                                                    categoryMap[c?.id] // take entire subCategory list from hashTable
                                         )
+                                    )
 
-                                        /*
-                                            * if this.categories wasn't constructed from scratch
-                                            & this was called in an event-listener with (already-stateful) this.categories ..
-                                            then append categories[c?.id] as all new subCategories
-                                            outside of the above double-check: this.categories[j]?.subCategories?.length == 0
+                                    /*
+                                        * if this.categories wasn't constructed from scratch
+                                        & this was called in an event-listener with (already-stateful) this.categories ..
+                                        then append categories[c?.id] as all new subCategories
+                                        outside of the above double-check: this.categories[j]?.subCategories?.length == 0
 
-                                            * this.categories[j].subCategories = this.categories[j].subCategories.concat(categories[c?.id])
-                                            if !!c?.id && categories.hasOwnProperty(c?.id)
-                                        */
+                                        * this.categories[j].subCategories = this.categories[j].subCategories.concat(categories[c?.id])
+                                        if !!c?.id && categories.hasOwnProperty(c?.id)
+                                    */
 
                                 )
                             )
